@@ -4,7 +4,7 @@ using System.Collections;
 public class Version : MonoBehaviour {
 	/*
 	 * BY MARIO RAMOS 
-	 * V 1.32
+	 * V 1.33
 	 * */
 	// Use this for initialization
 	void Start () {
