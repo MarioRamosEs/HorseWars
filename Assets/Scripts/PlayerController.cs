@@ -4,7 +4,8 @@ using UnityEngine.Networking;
 public class PlayerController : NetworkBehaviour{
 	public GameObject bulletPrefab;
 	public Transform bulletSpawn;
-	public int velocidad;
+	public int velocidad, impulse;
+	private Rigidbody rigidbody;
 
 	//public GameObject CameraJugador;
 	//private Camera cj;
@@ -20,17 +21,19 @@ public class PlayerController : NetworkBehaviour{
 		cj = CameraJugador.GetComponent<Camera>();
 		cj.enabled = true;
 		//cm.enabled = false;*/
+		rigidbody = GetComponent<Rigidbody>();
 	}
 
 	void Update()
 	{
 		if (!isLocalPlayer) return;
 
-		var x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f*velocidad/2;
-		var z = Input.GetAxis("Vertical") * Time.deltaTime * 10.0f*velocidad;
-
-		transform.Rotate(0, x, 0);
-		transform.Translate(0, 0, z);
+		float x = Input.GetAxis("Horizontal") * Time.deltaTime * 150.0f*velocidad/2;
+		float z = Input.GetAxis("Vertical") * Time.deltaTime * 10.0f*velocidad;
+		rigidbody.AddTorque(0,x*10,0);
+		rigidbody.AddForce(transform.forward * z * impulse);
+		//transform.Rotate(0, x, 0);
+		//transform.Translate(0, 0, z);
 
 		//playerCamera.transform.position = transform.position + offset;
 
